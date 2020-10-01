@@ -1,0 +1,79 @@
+int dp[151][151][2];
+int mod = 1003;
+
+int solve(string s , int i , int j , bool to_make){
+
+        if( i > j)
+            return 0;
+
+        if( i == j){
+
+        if(to_make == true)
+            return  s[i] =='T';
+        else 
+            return s[i]=='F';
+        }
+            if(dp[i][j][to_make]!=-1)
+                return dp[i][j][to_make];
+
+        int ans = 0 ;
+
+        for(int k = i+1 ; k < j ; k+=2){
+            
+            int lt , lf , rt , rf;
+            if(dp[i][k-1][1]!=-1)
+            lt = dp[i][k-1][1];
+            else{
+            lt =  solve(s , i , k-1 , 1);
+            }
+
+            if(dp[i][k-1][0]!=-1)
+            lf = dp[i][k-1][0];
+            else{
+             lf =  solve(s , i , k-1 , 0);
+            
+            }
+
+            if(dp[k+1][j][1]!=-1)
+            rt = dp[k+1][j][1];
+            else{
+             rt =  solve(s , k+1 , j , 1);
+              
+            }
+
+            if(dp[k+1][j][0]!=-1)
+            rf = dp[k+1][j][0];
+            else{
+              rf = solve(s , k+1 , j , 0);
+               
+            }
+            if(s[k] == '|'){
+                if(to_make == 1)
+                    ans = ans + (lt*rf + lf*rt + rt*lt)%mod;
+                else
+                    ans = ans + (lf*rf)%mod;
+            }
+            else if(s[k] == '&'){
+                if(to_make == 1)
+                    ans = ans + (lt*rt)%mod;
+                else
+                    ans = ans + (lf*rt + rf*lt + lf*rf)%mod;
+            }
+            else if(s[k] == '^'){
+                if(to_make == 1)
+                    ans = ans + (lt*rf + rt*lf)%mod;
+                else
+                    ans = ans + (rf*lf + rt*lt)%mod;
+            }
+        }
+
+        dp[i][j][to_make] = ans%mod;
+        return dp[i][j][to_make];
+    }
+
+
+int Solution::cnttrue(string s) {
+    memset(dp  , - 1, sizeof(dp));
+    int n = s.size();
+    return solve(s , 0 , n - 1 , 1);
+}
