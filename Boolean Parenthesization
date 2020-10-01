@@ -1,5 +1,5 @@
 int dp[151][151][2];
-int mod = 1003;
+int mod = 2003;
 
 int solve(string s , int i , int j , bool to_make){
 
@@ -17,7 +17,7 @@ int solve(string s , int i , int j , bool to_make){
                 return dp[i][j][to_make];
 
         int ans = 0 ;
-
+        
         for(int k = i+1 ; k < j ; k+=2){
             
             int lt , lf , rt , rf;
@@ -70,7 +70,7 @@ int solve(string s , int i , int j , bool to_make){
         dp[i][j][to_make] = ans%mod;
         return dp[i][j][to_make];
     }
-//nicely implementaed
+
 
 int Solution::cnttrue(string s) {
     memset(dp  , - 1, sizeof(dp));
