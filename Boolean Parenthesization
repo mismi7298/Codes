@@ -70,7 +70,7 @@ int solve(string s , int i , int j , bool to_make){
         dp[i][j][to_make] = ans%mod;
         return dp[i][j][to_make];
     }
-
+//nicely implementaed
 
 int Solution::cnttrue(string s) {
     memset(dp  , - 1, sizeof(dp));
