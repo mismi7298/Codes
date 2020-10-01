@@ -1,6 +1,6 @@
 int dp[151][151][2];
 int mod = 2003;
-
+// EK NUMBER KA ZEHAR/LODU CODE !!
 int solve(string s , int i , int j , bool to_make){
 
         if( i > j)
